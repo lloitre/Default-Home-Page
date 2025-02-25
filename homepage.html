@@ -29,41 +29,32 @@
       padding-top: 100px;
     }
     /* Typewriter effect */
-    .typewriter h1 {
+    #typewriter {
       display: inline-block;
       overflow: hidden; /* Ensures the content is not revealed until the animation */
-      border-right: .15em solid orange; /* The typwriter cursor */
+      border-right: .15em solid orange; /* The typewriter cursor */
       white-space: nowrap; /* Keeps the content on a single line */
       margin: 0 auto; /* Centers the content */
       letter-spacing: .15em; /* Adjust as needed */
-      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
       font-weight: bold; /* Makes the font bold */
       font-size: 2em; /* Increases font size */
     }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50% { border-color: orange; }
-    }
     /* Style for date and time */
     #full-date, #time-sast, #time-us {
-      font-size: 5em; /* Increase font size */
+      font-size: 1.5em; /* Increase font size */
       font-weight: bold; /* Make text bold */
       margin: 10px 0; /* Add some margin for spacing */
     }
   </style>
+  <!-- Include TypeIt library -->
+  <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.min.js"></script>
 </head>
 <body>
   <!-- Canvas for the Matrix effect -->
   <canvas id="matrixCanvas"></canvas>
   
   <div class="content">
-    <div class="typewriter">
-      <h1>Greetings! Mr L. Tshetshe😊</h1>
-    </div>
+    <div id="typewriter"></div>
     <p id="full-date"></p>
     <p id="time-sast"></p>
     <p id="time-us"></p>
@@ -135,6 +126,24 @@
     // Update display immediately and then every second
     updateDisplay();
     setInterval(updateDisplay, 1000);
+
+    // TYPEWRITER EFFECT SCRIPT
+    function startTypewriter() {
+      new TypeIt('#typewriter', {
+        strings: ["Greetings! Mr L. Tshetshe😊"],
+        speed: 100,
+        cursor: true,
+        afterComplete: function (instance) {
+          instance.destroy();
+        }
+      }).go();
+    }
+
+    // Initial call
+    startTypewriter();
+
+    // Restart the typewriter effect every second (1000 milliseconds)
+    setInterval(startTypewriter, 1000);
   </script>
 </body>
 </html>
